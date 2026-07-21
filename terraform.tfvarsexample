@@ -1,0 +1,6 @@
+aws_region           = "us-west-2"
+eks_cluster_name     = "your-existing-eks-cluster-name"
+app_image            = "your-registry/eks-bedrock-agent:v1"
+newrelic_account_id  = "YOUR_NEW_RELIC_ACCOUNT_ID"
+newrelic_license_key = "YOUR_NEW_RELIC_LICENSE_KEY"
+newrelic_api_key     = "NRAK-YOUR_NEW_RELIC_USER_API_KEY"
