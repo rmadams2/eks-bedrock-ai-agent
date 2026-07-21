@@ -7,10 +7,12 @@ It leverages **Amazon Bedrock** (via Cross-Region Inference Profiles) for AI gen
 ## Architecture
 
 * **Application:** Python FastAPI containerized with Docker, instrumented with the New Relic APM agent.
-* **Authentication:** EKS Pod Identity grants the Kubernetes pods direct IAM permissions to invoke Bedrock without embedding long-lived AWS credentials. NOTE: if your receive a message that the 'eks-bedrock-agent-role' already exists in your selected region, execute 
-```bash
-terraform import aws_iam_role.bedrock_agent eks-bedrock-agent-role
-```
+* **Authentication:** EKS Pod Identity grants the Kubernetes pods direct IAM permissions to invoke Bedrock without embedding long-lived AWS credentials. 
+
+**NOTE:** if your receive a message that the 'eks-bedrock-agent-role' already exists in your selected region, execute 
+    ```bash
+    terraform import aws_iam_role.bedrock_agent eks-bedrock-agent-role
+    ```
 * **Inference:** AWS Bedrock Cross-Region Inference Profiles (`us.amazon.nova-pro-v1:0`).
 * **Networking:** AWS Network Load Balancer (NLB) exposing the agent to the internet.
 * **Observability:** New Relic Scripted API Synthetic Monitors perform continuous evaluation and trigger NRQL alerts for security anomalies (e.g., prompt injections).
