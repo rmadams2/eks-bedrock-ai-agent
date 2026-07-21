@@ -175,6 +175,11 @@ resource "kubernetes_deployment" "eval_agent" {
           }
 
           env {
+            name = "NEW_RELIC_AI_MONITORING_ENABLED"
+            value = true
+          }
+
+          env {
             name = "NEW_RELIC_LICENSE_KEY"
             value_from {
               secret_key_ref {
