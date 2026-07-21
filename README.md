@@ -9,7 +9,7 @@ It leverages **Amazon Bedrock** (via Cross-Region Inference Profiles) for AI gen
 * **Application:** Python FastAPI containerized with Docker, instrumented with the New Relic APM agent.
 * **Authentication:** EKS Pod Identity grants the Kubernetes pods direct IAM permissions to invoke Bedrock without embedding long-lived AWS credentials. 
 
-**NOTE:** if your receive a message that the 'eks-bedrock-agent-role' already exists in your selected region, execute 
+***NOTE:*** if your receive a message that the 'eks-bedrock-agent-role' already exists in your selected region, execute 
 ```bash
 terraform import aws_iam_role.bedrock_agent eks-bedrock-agent-role
 ```
@@ -114,10 +114,10 @@ curl -X POST http://<YOUR_LOAD_BALANCER_HOSTNAME>/generate \
 * **APM & Services:** Log into New Relic and navigate to APM to view latency, throughput, and token count metrics for your `EKS-Bedrock-Agent`.
 * **Synthetic Monitoring:** Navigate to Synthetics to view the execution logs of the automated evaluator script Terraform deployed.
 
-  ***NOTE:*** you will need to replace your placeholder URL in your synthetics script with your actual endpoint URL
-```bash
-${kubernetes_service.eval_agent_service.status[0].load_balancer[0].ingress[0].hostname}
-```
+  ***NOTE:*** you will need to replace your placeholder URL in your synthetics script with your actual ***load_balancer_hostname*** from the Terraform output
+
+  `${kubernetes_service.eval_agent_service.status[0].load_balancer[0].ingress[0].hostname}`
+
 * **Alerts & AI:** View the deployed `AI Agent Security Policy` which will automatically trigger a critical violation if a user attempts a prompt injection.
 
 ---
