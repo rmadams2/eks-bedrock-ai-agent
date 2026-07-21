@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eval-agent-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eval-agent
+  template:
+    metadata:
+      labels:
+        app: eval-agent
+    spec:
+      serviceAccountName: bedrock-agent-sa
+      containers:
+      - name: api
+        image: your-registry/simple-eval-agent:v1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: AWS_REGION
+          value: "us-west-2"
+        - name: NEW_RELIC_APP_NAME
+          value: "EKS-Bedrock-Agent"
+        - name: NEW_RELIC_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-agent-secrets
+              key: NEW_RELIC_LICENSE_KEY
