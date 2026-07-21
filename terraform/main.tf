@@ -73,21 +73,25 @@ resource "aws_iam_role" "bedrock_agent" {
 # Least-Privilege IAM Policy for Bedrock Cross-Region Profiles
 resource "aws_iam_policy" "bedrock_restricted" {
   name        = "EKS-Bedrock-Agent-Restricted"
-  description = "Allows access only to specified Bedrock cross-region inference profiles"
+  description = "Allows access to Bedrock cross-region inference profiles and underlying models"
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "AllowSpecificBedrockModels"
+        Sid    = "AllowSpecificBedrockProfiles"
         Effect = "Allow"
         Action = [
           "bedrock:InvokeModel",
           "bedrock:InvokeModelWithResponseStream"
         ]
         Resource = [
-          "arn:aws:bedrock:${var.aws_region}::inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0",
-          "arn:aws:bedrock:${var.aws_region}::inference-profile/us.amazon.nova-pro-v1:0"
+          # The Cross-Region Inference Profiles (Requires Account ID, using * wildcard)
+          "arn:aws:bedrock:${var.aws_region}:*:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+          "arn:aws:bedrock:${var.aws_region}:*:inference-profile/us.amazon.nova-pro-v1:0",
+          
+          # The underlying Foundation Models (Requires NO Account ID)
+          "arn:aws:bedrock:*::foundation-model/amazon.nova-pro-v1:0"
         ]
       }
     ]
