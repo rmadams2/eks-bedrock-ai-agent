@@ -113,6 +113,11 @@ curl -X POST http://<YOUR_LOAD_BALANCER_HOSTNAME>/generate \
 ### 2. Verify Observability in New Relic
 * **APM & Services:** Log into New Relic and navigate to APM to view latency, throughput, and token count metrics for your `EKS-Bedrock-Agent`.
 * **Synthetic Monitoring:** Navigate to Synthetics to view the execution logs of the automated evaluator script Terraform deployed.
+
+  ***NOTE:*** you will need to replace your placeholder URL in your synthetics script with your actual endpoint URL
+```bash
+${kubernetes_service.eval_agent_service.status[0].load_balancer[0].ingress[0].hostname}
+```
 * **Alerts & AI:** View the deployed `AI Agent Security Policy` which will automatically trigger a critical violation if a user attempts a prompt injection.
 
 ---
