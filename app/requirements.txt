@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-boto3
-newrelic
-pydantic
+fastapi>=0.100.0
+uvicorn>=0.22.0
+boto3>=1.34.14
+botocore>=1.34.14
+newrelic>=9.0.0
