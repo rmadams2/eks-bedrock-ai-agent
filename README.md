@@ -114,7 +114,7 @@ curl -X POST http://<YOUR_LOAD_BALANCER_HOSTNAME>/generate \
 * **APM & Services:** Log into New Relic and navigate to APM to view latency, throughput, and token count metrics for your `EKS-Bedrock-Agent`.
 * **Synthetic Monitoring:** Navigate to Synthetics to view the execution logs of the automated evaluator script Terraform deployed.
 
-  ***NOTE:*** you will need to replace your placeholder URL in your synthetics script with your actual ***load_balancer_hostname*** from the Terraform output
+  ***NOTE:*** you will need to replace your placeholder URL in your synthetics script with your actual `load_balancer_hostname` from the Terraform output
 
   `${kubernetes_service.eval_agent_service.status[0].load_balancer[0].ingress[0].hostname}`
 
