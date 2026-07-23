@@ -104,7 +104,7 @@ load_balancer_hostname = "a1b2c3d4...elb.us-west-2.amazonaws.com"
 Wait 2-3 minutes for AWS to finish provisioning the Network Load Balancer hardware, then send a test request using the hostname output by Terraform:
 
 ```bash
-curl -X POST http://<YOUR_LOAD_BALANCER_HOSTNAME>/generate \
+curl -X POST http://load_balancer_hostname/generate \
   -H "Content-Type: application/json" \
   -d '{"prompt": "Explain Kubernetes in one sentence.", "user_id": "test_user_1"}'
 ```
